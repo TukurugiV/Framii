@@ -1,0 +1,53 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 20,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "vs-x64-debug",
+      "displayName": "VS x64 Debug",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/vs-x64-debug",
+      "architecture": "x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "MYAPP_BUILD_DEMO": "ON",
+        "MYAPP_ENABLE_WARNINGS": "ON",
+        "MYAPP_WARNINGS_AS_ERRORS": "OFF",
+        "MYAPP_INSTALL": "ON"
+      }
+    },
+    {
+      "name": "vs-x64-release",
+      "displayName": "VS x64 Release",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/vs-x64-release",
+      "architecture": "x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "MYAPP_BUILD_DEMO": "ON",
+        "MYAPP_ENABLE_WARNINGS": "ON",
+        "MYAPP_WARNINGS_AS_ERRORS": "OFF",
+        "MYAPP_INSTALL": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-vs-x64-debug",
+      "displayName": "Build VS x64 Debug",
+      "configurePreset": "vs-x64-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "build-vs-x64-release",
+      "displayName": "Build VS x64 Release",
+      "configurePreset": "vs-x64-release",
+      "configuration": "Release"
+    }
+  ],
+  "testPresets": []
+}
