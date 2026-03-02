@@ -107,6 +107,43 @@ target_link_libraries(imgui PUBLIC
 )
 
 # ------------------------------------------------------------
+# Media Foundation libraries (Windows only)
+# ------------------------------------------------------------
+if(WIN32)
+  set(MF_LIBRARIES
+    mfplat.lib
+    mf.lib
+    mfreadwrite.lib
+    mfuuid.lib
+  )
+endif()
+
+# ------------------------------------------------------------
+# Media Foundation library
+# ------------------------------------------------------------
+if(WIN32)
+  add_library(rt_media STATIC
+    src/media/MediaFoundationContext.cpp
+  )
+
+  target_include_directories(rt_media PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+  )
+
+  target_link_libraries(rt_media PUBLIC
+    ${MF_LIBRARIES}
+  )
+
+  target_compile_definitions(rt_media PRIVATE
+    WINVER=0x0A00
+    _WIN32_WINNT=0x0A00
+    NOMINMAX
+  )
+
+  myapp_apply_warnings(rt_media)
+endif()
+
+# ------------------------------------------------------------
 # Targets
 # ------------------------------------------------------------
 
@@ -117,6 +154,7 @@ if(MYAPP_BUILD_DEMO)
 
   target_link_libraries(myapp PRIVATE
     imgui
+    rt_media
   )
 
   target_include_directories(myapp PRIVATE
