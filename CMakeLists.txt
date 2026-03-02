@@ -144,6 +144,29 @@ if(WIN32)
 endif()
 
 # ------------------------------------------------------------
+# Application framework library
+# ------------------------------------------------------------
+add_library(rt_app STATIC
+  src/graphics/GraphicsContext.cpp
+  src/graphics/Window.cpp
+  src/ui/ImGuiContext.cpp
+  src/app/Application.cpp
+)
+
+target_include_directories(rt_app PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+target_link_libraries(rt_app PUBLIC
+  imgui
+  glfw
+  glad
+  OpenGL::GL
+)
+
+myapp_apply_warnings(rt_app)
+
+# ------------------------------------------------------------
 # Targets
 # ------------------------------------------------------------
 
@@ -153,7 +176,7 @@ if(MYAPP_BUILD_DEMO)
   )
 
   target_link_libraries(myapp PRIVATE
-    imgui
+    rt_app
     rt_media
   )
 
